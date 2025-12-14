@@ -18,7 +18,9 @@
         "friendsofphp/php-cs-fixer": "^3.92",
         "phpstan/extension-installer": "*",
         "phpstan/phpstan": "*",
-        "phpstan/phpstan-symfony": "^2.0"
+        "phpstan/phpstan-symfony": "^2.0",
+        "symfony/stopwatch": "7.4.*",
+        "symfony/web-profiler-bundle": "7.4.*"
     },
     "config": {
         "allow-plugins": {
