@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+
+# Symfony
+/var/
+/vendor/
+/.env.local
+/.env.local.php
+/.env.*.local
+/public/bundles/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
