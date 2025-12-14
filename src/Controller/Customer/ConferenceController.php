@@ -17,6 +17,7 @@ final class ConferenceController extends AbstractController
         if ($name = $request->query->get('hello')) {
             $greet = sprintf('<h1>Hello %s!</h1>', htmlspecialchars($name));
         }
+
         return new Response(<<<EOF
 <html lang="en">
                         <body style="height: 100%">
