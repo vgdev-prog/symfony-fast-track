@@ -13,16 +13,16 @@ class Conference
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[ORM\Column(length: 255)]
-    private ?string $city = null;
+    private string $city;
 
     #[ORM\Column(length: 255)]
-    private ?string $year = null;
+    private string $year;
 
     #[ORM\Column(name: 'is_international')]
-    private ?bool $isInternational = null;
+    private bool $isInternational;
 
     /**
      * @var Collection<int, Comment>
@@ -33,6 +33,11 @@ class Conference
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->city . ' - ' . $this->year;
     }
 
     public function getId(): ?int
@@ -96,12 +101,7 @@ class Conference
 
     public function removeComment(Comment $comment): static
     {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getConference() === $this) {
-                $comment->setConference(null);
-            }
-        }
+        $this->comments->removeElement($comment);
 
         return $this;
     }

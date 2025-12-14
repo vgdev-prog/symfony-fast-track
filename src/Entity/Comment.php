@@ -15,20 +15,20 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $author = null;
+    private string $author;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $text = null;
+    private string $text;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private string $email;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Conference $conference = null;
+    private Conference $conference;
 
     public function getId(): ?int
     {
@@ -88,7 +88,7 @@ class Comment
         return $this->conference;
     }
 
-    public function setConference(?Conference $conference): static
+    public function setConference(Conference $conference): static
     {
         $this->conference = $conference;
 
