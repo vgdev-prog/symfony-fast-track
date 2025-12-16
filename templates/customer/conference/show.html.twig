@@ -6,27 +6,42 @@
     <h2>{{ conference }} Conference</h2>
 
     {% if comments|length > 0 %}
-        {% for comment in comments %}
-            {% if comment.photofilename %}
-                <img src="{{ asset('uploads/photos/' ~ comment.photofilename) }}" style="max-width: 200px"
-                     alt="Avatar"/>
-            {% endif %}
 
-            <h4>{{ comment.author }}</h4>
-            <small>
-                {{ comment.createdAt|format_datetime('medium', 'short') }}
-            </small>
+        <div>There are {{ total }} comments.</div>
 
-            <p>{{ comment.text|raw }}</p>
-        {% endfor %}
+        <div class="comments">
+            {% for comment in comments %}
+
+                <div class="comments__item comment-card">
+                    <div class="comment-card__img-wrapper">
+                        {% if comment.photofilename %}
+                            <img src="{{ asset('uploads/photos/' ~ comment.photofilename) }}" style="max-width: 200px"
+                                 alt="Avatar"/>
+                        {% endif %}
+                    </div>
+
+                    <h4>{{ comment.author }}</h4>
+
+                    <div class="comment-card__footer">
+
+                        <p class="comment-card__text">{{ comment.text|raw }}</p>
+
+                        <time class="comment-card__date" datetime="{{ comment.createdAt|date('c') }}">
+                            {{ comment.createdAt|format_datetime('medium', 'short') }}
+                        </time>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
 
         {% if previous >= 0 %}
-            <a href="{{ path('conference', { id: conference.id, offset: previous }) }}">Previous</a>
+            <a href="{{ path('customer.conference.show', { id: conference.id, offset: previous }) }}">Previous</a>
         {% endif %}
+
         {% if next < comments|length %}
-            <a href="{{ path('conference', { id: conference.id, offset: next }) }}">Next</a>
+            <a href="{{ path('customer.conference.show', { id: conference.id, offset: next }) }}">Next</a>
         {% endif %}
-l
     {% else %}
         <div>No comments have been posted yet for this conference.</div>
     {% endif %}

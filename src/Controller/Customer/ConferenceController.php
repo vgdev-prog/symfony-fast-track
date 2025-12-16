@@ -37,6 +37,7 @@ final class ConferenceController extends AbstractController
             'comments' => $paginator,
             'previous' => $offset - CommentRepository::COMMENTS_PER_PAGE,
             'next' => min(count($paginator), $offset + CommentRepository::COMMENTS_PER_PAGE),
+            'total' => $paginator->count(),
         ]);
     }
 }
