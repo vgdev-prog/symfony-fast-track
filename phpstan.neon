@@ -5,3 +5,5 @@ parameters:
     excludePaths:
         - var
         - vendor
+    doctrine:
+        objectManagerLoader: config/bootstrap.php

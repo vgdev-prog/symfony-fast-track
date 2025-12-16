@@ -97,6 +97,13 @@ $rules = [
         ],
     ],
 
+    'global_namespace_import' => [
+        'import_classes' => true,
+        'import_constants' => false,
+        'import_functions' => false,
+    ],
+
+
     // Control structures
     'control_structure_braces' => true,
     'no_alternative_syntax' => ['fix_non_monolithic_code' => false],
