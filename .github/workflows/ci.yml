@@ -1,0 +1,89 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Symfony
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  symfony-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: symfony_test
+          MYSQL_USER: symfony
+          MYSQL_PASSWORD: symfony
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 3306:3306
+
+    strategy:
+      matrix:
+        php-version: ['8.3']
+
+    steps:
+      - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ctype, iconv, pdo, pdo_mysql
+          coverage: none
+
+      - uses: actions/checkout@v4
+
+      - run: |
+          composer --version
+          php -v
+
+      - run: composer validate --strict --no-check-publish
+
+      - run: composer update --no-ansi --no-interaction --no-scripts --prefer-dist --ignore-platform-req=ext-redis
+
+      - env:
+          DATABASE_URL: mysql://symfony:symfony@127.0.0.1:3306/symfony_test?serverVersion=8.0
+        run: php bin/console doctrine:migrations:migrate --no-interaction --env=test
+
+      - run: composer cs:check
+
+      - run: composer phpstan
+
+      # TODO: Install PHPUnit and enable tests
+      # - env:
+      #     DATABASE_URL: mysql://symfony:symfony@127.0.0.1:3306/symfony_test?serverVersion=8.0
+      #   run: vendor/bin/phpunit
+
+  symfony-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
+        with:
+          php-version: '8.3'
+          extensions: ctype, iconv
+
+      - uses: actions/checkout@v4
+
+      - run: |
+          composer --version
+          php -v
+
+      - run: composer validate --strict --no-check-publish
+
+      - run: composer update --no-ansi --no-interaction --no-scripts --prefer-dist --ignore-platform-req=ext-redis
+
+      - uses: symfonycorp/security-checker-action@v5

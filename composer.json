@@ -4,29 +4,29 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "doctrine/doctrine-bundle": "^2.18",
+        "doctrine/doctrine-bundle": "^2.18.1",
         "doctrine/doctrine-migrations-bundle": "^3.7",
-        "doctrine/orm": "^3.5",
-        "easycorp/easyadmin-bundle": "^4.27",
+        "doctrine/orm": "^3.5.8",
+        "easycorp/easyadmin-bundle": "^4.27.5",
         "symfony/asset-mapper": "7.4.*",
         "symfony/console": "7.4.*",
         "symfony/dotenv": "7.4.*",
-        "symfony/flex": "^2",
+        "symfony/flex": "^2.10",
         "symfony/framework-bundle": "7.4.*",
         "symfony/runtime": "7.4.*",
         "symfony/yaml": "7.4.*",
-        "twig/intl-extra": "^3"
+        "twig/intl-extra": "^3.22.1"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.92",
-        "phpstan/extension-installer": "*",
-        "phpstan/phpstan": "*",
-        "phpstan/phpstan-doctrine": "^2.0",
-        "phpstan/phpstan-symfony": "^2.0",
-        "symfony/maker-bundle": "^1.65",
+        "friendsofphp/php-cs-fixer": "^3.92.1",
+        "phpstan/extension-installer": ">=1.4.3",
+        "phpstan/phpstan": ">=2.1.33",
+        "phpstan/phpstan-doctrine": "^2.0.12",
+        "phpstan/phpstan-symfony": "^2.0.9",
+        "symfony/maker-bundle": "^1.65.1",
         "symfony/stopwatch": "7.4.*",
         "symfony/web-profiler-bundle": "7.4.*"
     },
@@ -38,7 +38,8 @@
             "phpstan/extension-installer": true
         },
         "bump-after-update": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "autoload": {
         "psr-4": {

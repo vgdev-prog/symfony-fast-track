@@ -1,17 +1,39 @@
-# editorconfig.org
+# EditorConfig is awesome: https://EditorConfig.org
 
+# top-most EditorConfig file
 root = true
 
+# Unix-style newlines with a newline ending every file
 [*]
-charset = utf-8
 end_of_line = lf
-indent_size = 4
-indent_style = space
 insert_final_newline = true
+charset = utf-8
 trim_trailing_whitespace = true
 
-[{compose.yaml,compose.*.yaml}]
+# PHP files
+[*.php]
+indent_style = space
+indent_size = 4
+
+# YAML files
+[*.{yaml,yml}]
+indent_style = space
 indent_size = 2
 
+# Twig files
+[*.twig]
+indent_style = space
+indent_size = 4
+
+# JSON files
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Markdown files
 [*.md]
 trim_trailing_whitespace = false
+
+# Makefile
+[Makefile]
+indent_style = tab

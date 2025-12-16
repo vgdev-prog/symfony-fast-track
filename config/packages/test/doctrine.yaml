@@ -1,0 +1,5 @@
+doctrine:
+    dbal:
+        # Disable automatic _test suffix for database name in test environment
+        # This allows us to use the exact database name from DATABASE_URL
+        dbname_suffix: ''
