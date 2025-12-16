@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -24,11 +25,14 @@ class Comment
     private string $email;
 
     #[ORM\Column]
-    private \DateTimeImmutable $createdAt;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private Conference $conference;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $photofilename = null;
 
     public function getId(): ?int
     {
@@ -71,12 +75,12 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -91,6 +95,18 @@ class Comment
     public function setConference(Conference $conference): static
     {
         $this->conference = $conference;
+
+        return $this;
+    }
+
+    public function getPhotofilename(): ?string
+    {
+        return $this->photofilename;
+    }
+
+    public function setPhotofilename(?string $photofilename): static
+    {
+        $this->photofilename = $photofilename;
 
         return $this;
     }

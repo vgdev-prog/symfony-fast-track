@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ConferenceRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -23,6 +24,9 @@ class Conference
 
     #[ORM\Column(name: 'is_international')]
     private bool $isInternational;
+
+    #[ORM\Column(name: 'created_at', nullable: false, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private DateTimeImmutable $createdAt;
 
     /**
      * @var Collection<int, Comment>
@@ -104,5 +108,16 @@ class Conference
         $this->comments->removeElement($comment);
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAt(DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
     }
 }
